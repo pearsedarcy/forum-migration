@@ -1,14 +1,14 @@
-# 🤖 XenForo Forum Scraper
+# 🤖 XenForo Forum Migration Tool
 
-A Python-based tool for extracting and processing data from XenForo forums using the XenForo API.
+A Python-based tool for migrating data between XenForum and XenForo platforms.
 
 ## ✨ Features
 
-- 🔍 API endpoint testing and validation
-- 📥 Data extraction from multiple endpoints
-- ⏱️ Automated JSON file generation with timestamps
-- 🔐 Environment variable support for secure configuration
+- 🔄 Automated migration between forum platforms
+- 📊 User data validation and transformation
+- 🔍 Migration progress tracking and reporting
 - 🛡️ Comprehensive error handling and logging
+- ⏱️ Performance metrics for migration phases
 
 ## 📋 Prerequisites
 
@@ -28,30 +28,48 @@ cd forum-migration
 pip install requests python-dotenv
 ```
 
-3. Create `.env` file with your XenForo credentials:
+3. Create `.env` file with your credentials:
 ```properties
+# XenForo Configuration
 XENFORO_BASE_URL=your_forum_url
 XENFORO_API_KEY=your_api_key
+
+# XenForum Configuration
+XENFORUM_OLD_BASE_URL=https://app.xenforum.net/api/topics
+XENFORUM_OLD_TOKEN=your_xenforum_token
+XENFORUM_OLD_SHOP=your_shop_identifier
 ```
 
 ## 🎮 Usage
 
 ### 🔰 Basic Usage
+
+Run the migration workflow:
 ```bash
-python scripts/xenforo_scrape.py
+python scripts/t2b/t2b_user_matrix.py
 ```
 
-### 📜 Available Scripts
-
-- 🌐 `scripts/xenforo_scrape.py`: Tests API connectivity and downloads forum data
-- 🔄 `scripts/xenforum(old)/scrape_wrongboarding_forum.py`: Processes downloaded data into a consistent format
+The migration process runs in three phases:
+1. 📥 Data Harvesting: Extracts user data from both forums
+2. 🔄 Data Transformation: Converts data to the target format
+3. ✅ Data Validation: Verifies the transformed data
 
 ### 📤 Output
 
-The scripts generate several JSON files:
-- 📄 Individual endpoint responses: `xenforo_[endpoint]_[timestamp].json`
-- 📚 Combined responses: `xenforo_all_responses_[timestamp].json`
-- 📊 Processed data: `data/processed/processed_forum_data.json`
+The script generates data in the following structure:
+```
+data/
+├── xenforum/
+│   └── users/
+│       └── processed/
+├── xenforo/
+│   └── users/
+│       └── processed/
+├── transformed/
+│   └── users/
+└── validation/
+    └── users/
+```
 
 ## ⚙️ Configuration
 
@@ -59,17 +77,38 @@ The scripts generate several JSON files:
 
 - 🌍 `XENFORO_BASE_URL`: Your XenForo forum's base URL
 - 🔒 `XENFORO_API_KEY`: Your XenForo API key
+- 🌐 `XENFORUM_OLD_BASE_URL`: Base URL for old XenForum API
+- 🔑 `XENFORUM_OLD_TOKEN`: Authentication token for XenForum API
+- 🏪 `XENFORUM_OLD_SHOP`: Shop identifier for XenForum
 
 ## 📁 Project Structure
 
 ```
 forum-migration/
 ├── 📂 scripts/
-│   ├── 📂 xenforum(old)/
-│   │   └── 🔄 scrape_wrongboarding_forum.py
-│   └── 🌐 xenforo_scrape.py
+│   ├── 📂 t2b/
+│   │   └── 🔄 t2b_user_matrix.py
+│   ├── 📂 xenforo_new/
+│   │   ├── 🌐 xenforo_scrape.py
+│   │   └── 👥 user_harvester.py
+│   ├── 📂 xenforum_old/
+│   │   ├── 🌐 scrape_wrongboarding_forum.py
+│   │   └── 👥 user_harvester.py
+│   ├── 📂 transformers/
+│   │   └── 🔄 user_format_transformer.py
+│   └── 📂 validators/
+│       └── ✅ user_data_validator.py
 ├── 📂 data/
-│   └── 📊 processed/
+│   ├── 📂 xenforum/
+│   │   └── 📂 users/
+│   │       └── 📂 processed/
+│   ├── 📂 xenforo/
+│   │   └── 📂 users/
+│   │       └── 📂 processed/
+│   ├── 📂 transformed/
+│   │   └── 📂 users/
+│   └── 📂 validation/
+│       └── 📂 users/
 ├── 🔐 .env
 ├── 📝 .gitignore
 └── 📖 README.md
@@ -85,4 +124,5 @@ forum-migration/
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the LICENSE file for
+details.

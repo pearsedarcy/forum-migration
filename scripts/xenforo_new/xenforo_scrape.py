@@ -48,9 +48,9 @@ def test_api_endpoints():
     """Test various API endpoints"""
     endpoints = [
         '/',               # Index
-        '/threads/',       # Threads
-        '/forums/',        # Forums list
-        '/categories/',    # Categories
+        '/threads/',
+        '/users/',       # users
+
     ]
     
     results = {}

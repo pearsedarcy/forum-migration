@@ -6,7 +6,9 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "aiohttp>=3.11.11",
+    "ggshield>=1.10.8",
     "pandas>=2.2.3",
+    "pre-commit>=4.1.0",
     "python-dotenv>=1.0.1",
     "requests>=2.32.3",
     "schedule>=1.2.2",
