@@ -4,18 +4,22 @@ import requests
 import pandas as pd
 import schedule
 import time
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # 🟢 Old API Configuration
 OLD_API_BASE_URL = "https://app.xenforum.net/api/topics"
 OLD_API_HEADERS = {
-    "Token": "***REMOVED***",
-    "Shop": "***REMOVED***"
+    "Token": os.getenv('XENFORUM_OLD_TOKEN'),
+    "Shop": os.getenv('XENFORUM_OLD_SHOP')
 }
 
 # 🔵 New API Configuration
-NEW_API_BASE_URL = "https://newapi.example.com/api/endpoint"  # Change to the correct URL
+NEW_API_BASE_URL = os.getenv('NEW_API_BASE_URL')
 NEW_API_HEADERS = {
-    "Authorization": "Bearer your_new_api_key",
+    "Authorization": f"Bearer {os.getenv('NEW_API_KEY')}",
     "Content-Type": "application/json"
 }
 
